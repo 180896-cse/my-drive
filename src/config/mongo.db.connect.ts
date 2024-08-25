@@ -1,13 +1,17 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 require("dotenv").config();
+console.log(process.env.DBPASSWORD?.toString());
+
 
 export default class MongoDBConnection {
   private static uri = `mongodb+srv://shantanupratap180896:${encodeURIComponent(
-    `Ruther@4321`
+    process.env.DBPASSWORD?.toString()|| "No Password"
   )}@my-drive-cluster.ojkg5.mongodb.net/?retryWrites=true&w=majority&appName=my-drive-cluster`;
 
+  
   static async dbConnect() {
+    console.log(this.uri);
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
     const mongoDBClient = new MongoClient(this.uri, {
       serverApi: {
